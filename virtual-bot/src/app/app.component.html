@@ -1,0 +1,57 @@
+
+<div class="p-5 mb-4" style="background-color: #e2e6ea; border-radius: 0.375rem;">
+  <h1 class="display-4">Object detection</h1>
+  <p class="lead">This is a web app with fully supported back-end by machine learning object detection models including pretrained and trained models.Select model 
+  by choosing from dropbox after uploading image to the server.</p>
+  <input type="file" style="margin-top:25px;margin-left:10px;" (change)="send($event)" required>
+  <input type="button" value="process" class="btn btn-danger" (click)="display()">
+  <select name="model" id="model" style="margin-left:15px;height:40px;"  (change)="selectmodel($event)">
+      <option value="0">Custom model 1</option>
+      <option value="1">Custom model 2</option>
+  </select>
+  
+  <select style="margin-left:15px;height:40px;" (change)="results($event)">
+  <option selected="selected" disabled>Items will appear here</option>
+      <option *ngFor="let res of predictions" [value]="res">{{res}}</option>
+  </select>
+</div>
+
+
+<div class="mb-5"  style="display:flex;flex-direction:row;">
+<div *ngIf="inputwindow_flag">
+<div *ngIf="sucess_flag; else buffer1">
+  <img [src]="this.url" height="360" width="540">
+</div>
+<ng-template #buffer1>
+  <div class="loader">
+  </div>
+</ng-template>
+</div>
+
+<div *ngIf="outputwindow_flag">
+<div *ngIf="display_flag; else buffer2">
+  <img [src]="path" style="margin-left:10px;" height="360" width="540">
+</div>
+<ng-template #buffer2>
+  <div class="loader">
+  </div>
+</ng-template>
+</div>
+</div>
+
+
+
+<div class="row mb-5">
+<div *ngFor="let res of productlist" class="col-sm-4">
+  <div class="card" style="width:18rem;">
+      <img [src]="res.product_photo" class="card-img-top" width="360" height="360"/>
+      <div class="card-body">
+    <div style="overflow-y:auto;height:200px;">
+             <h5 class="card-title">{{res.product_title}}</h5>
+  </div>
+          <p class="card-text">{{res.product_star_rating}}/5</p>
+      </div>
+  </div>
+</div><br>
+</div>
+
